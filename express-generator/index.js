@@ -1,32 +1,45 @@
-// Initialize express app
-const express = require("express");
-const path = require("path");
-// Initialize app
-const app = express();
+const Generator = require("yeoman-generator");
 
-// Require dotenv
+module.exports = class extends Generator {
+  welcome() {
+    this.log("Welcome to the Express pack generator!");
+  }
 
-require("dotenv").config();
+  writing() {
+    this.fs.copy(
+      this.templatePath("index.js"),
+      this.destinationPath("index.js")
+    );
+    this.fs.copy(
+      this.templatePath(".env"),
+      this.destinationPath(".sample.env")
+    );
+    this.fs.copy(
+      this.templatePath(".gitignore"),
+      this.destinationPath(".gitignore")
+    );
+    this.fs.copy(
+      this.templatePath("package.json"),
+      this.destinationPath("package.json")
+    );
+    this.fs.copy(
+      this.templatePath("package-lock.json"),
+      this.destinationPath("package-lock.json")
+    );
+    this.fs.copy(
+      this.templatePath("template"),
+      this.destinationPath("template")
+    );
+  }
 
-// Access to public folder
-
-app.use(express.static(path.join(__dirname, "public")));
-
-// Initialize PORT number
-const PORT = process.env.PORT;
-
-// Routes
-app.get("/", (req, res) => {
-  res.status(200).json({
-    msg: "Hello World",
-  });
-});
-
-// routes folder
-
-app.use("/contact", require("./routes/index"));
-
-// Listen to PORT
-app.listen(PORT, () => {
-  console.log(`App is listening on http://localhost:${PORT}`);
-});
+  end() {
+    this.log(" ");
+    this.log(
+      "Finished generating! Before running, make sure you have all the necessary dependencies and devDependencies installed in your system."
+    );
+    this.log(" ");
+    this.log("https://nirajchaurasiya.com/");
+    this.log(" ");
+    this.log("Thank you installing express starter pack");
+  }
+};
