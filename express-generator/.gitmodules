@@ -1,0 +1,3 @@
+[submodule "express-generator"]
+	path = express-generator
+	url = https://github.com/nirajchaurasiya/express-generator
